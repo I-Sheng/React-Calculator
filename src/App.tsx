@@ -1,39 +1,37 @@
-import { useState, useRef } from "react";
+import { useState, useRef, type MouseEvent } from "react";
 import "./App.css";
 
 function App() {
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const resultRef = useRef(null);
   const [result, setResult] = useState(0);
-  const [input, setInput] = useState(0);
 
-  function plus(e) {
+  function plus(e: MouseEvent) {
     e.preventDefault();
-    setResult((result) => result + Number(inputRef.current.value));
+    setResult((result) => result + Number(inputRef.current?.value));
   }
 
-  function minus(e) {
+  function minus(e: MouseEvent) {
     e.preventDefault();
-    setResult((result) => result - Number(inputRef.current.value));
+    setResult((result) => result - Number(inputRef.current?.value));
   }
 
-  function times(e) {
+  function times(e: MouseEvent) {
     e.preventDefault();
-    setResult((result) => result * Number(inputRef.current.value));
+    setResult((result) => result * Number(inputRef.current?.value));
   }
 
-  function divide(e) {
+  function divide(e: MouseEvent) {
     e.preventDefault();
-    setResult((result) => result / Number(inputRef.current.value));
+    setResult((result) => result / Number(inputRef.current?.value));
   }
 
-  function resetInput(e) {
+  function resetInput(e: MouseEvent) {
     e.preventDefault();
-    setInput(() => 0);
-    inputRef.current.value = null;
+    inputRef.current!.value = '';
   }
 
-  function resetResult(e) {
+  function resetResult(e: MouseEvent) {
     e.preventDefault();
     setResult(() => 0);
   }
@@ -51,12 +49,14 @@ function App() {
           type="number"
           placeholder="Type a number"
         />
-        <button onClick={plus}>add</button>
-        <button onClick={minus}>substract</button>
-        <button onClick={times}>multiply</button>
-        <button onClick={divide}>divide</button>
-        <button onClick={resetInput}>resetInput</button>
-        <button onClick={resetResult}>resetResult</button>
+        <ul>
+          <button onClick={plus}>add</button>
+          <button onClick={minus}>substract</button>
+          <button onClick={times}>multiply</button>
+          <button onClick={divide}>divide</button>
+          <button onClick={resetInput}>resetInput</button>
+          <button onClick={resetResult}>resetResult</button>
+        </ul>
       </form>
     </div>
   );
